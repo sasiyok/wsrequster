@@ -58,5 +58,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/com/daehosting/webservices/isbn"/>
         <delete dir="${build.generated.dir}/jax-wsCache/isbnservice"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-calculator, wsimport-client-isbnservice"/>
+    <target name="wsimport-client-GradeCalculationService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/GradeCalculationService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/GradeCalculationService" destdir="${build.generated.dir}/jax-wsCache/GradeCalculationService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/GradeCalculationService/wsdl/localhost_8080/wsprovider/GradeCalculationService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/wsprovider/GradeCalculationService?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/GradeCalculationService/wsdl/localhost_8080/wsprovider/GradeCalculationService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/GradeCalculationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/GradeCalculationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-GradeCalculationService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/GradeCalculationService"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-calculator, wsimport-client-isbnservice, wsimport-client-GradeCalculationService"/>
 </project>
